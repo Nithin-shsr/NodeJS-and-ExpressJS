@@ -1,3 +1,5 @@
+File 1 Says :
+
 Promises in JavaScript represent the eventual completion or failure of an asynchronous operation.
 They act as placeholders for values that will be available in the future. A Promise has three states:
 1. Pending – initial state
