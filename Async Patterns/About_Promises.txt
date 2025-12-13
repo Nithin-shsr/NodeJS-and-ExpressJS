@@ -1,0 +1,26 @@
+File 1 Says :
+
+Promises in JavaScript represent the eventual completion or failure of an asynchronous operation.
+They act as placeholders for values that will be available in the future. A Promise has three states:
+1. Pending – initial state
+2. Fulfilled – operation completed successfully
+3. Rejected – operation failed
+
+Why use Promises?
+- They avoid callback hell (deeply nested callbacks).
+- Provide cleaner, chainable syntax for async operations.
+- Work seamlessly with async/await.
+
+
+File 2 Says :
+
+Creating a Promise:
+const myPromise = new Promise((resolve, reject) => {
+    const success = true;
+    if (success) resolve("Operation successful!");
+    else reject("Operation failed!");
+});
+
+Error handling:
+- Always use .catch() or try/catch with async/await.
+- Prevents unhandled rejections that can crash the app.
