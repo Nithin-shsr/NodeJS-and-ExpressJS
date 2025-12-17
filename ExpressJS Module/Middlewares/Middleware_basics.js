@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express();
 const logger = require('./Logger middleware');
-
-app.use(logger);
+const authorize = require('./Authorize middleware');
+app.use([authorize,logger]);
 
 /**
  * Instead of using logger middleware in each an every routes that we are creating we can declare them only once
@@ -20,7 +20,6 @@ Note ;
         */
 
 app.get('/',(req,res)=>{
-
     res.send('This is our home page');
 })
 
