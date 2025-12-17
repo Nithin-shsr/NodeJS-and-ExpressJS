@@ -13,7 +13,7 @@ app.get('/api/products',(req,res)=>{
         return {id,name};
     })
 
-    res.json(newProducts);
+    res.status(200).json(newProducts);
 })
 
 // app.get('/api/products/1',(req,res)=>{
@@ -29,6 +29,34 @@ app.get('/api/products/:productID',(req,res)=>{
     const Product = products.find((product)=>product.id === Number(productID));
     res.json(Product);
 })
+
+//Query String parameters is also known as URL parameters is a way to send small amounts of information to the server using URL
+
+app.get('/api/v1/query',(req,res)=>{
+    // console.log("Your query is processed and it is :",req.query);
+   const {search , limit } = req.query;
+   let sortedProducts = [...products];
+
+
+   if(search)
+   {
+       sortedProducts = sortedProducts.filter((product)=>{
+           return product.name.startsWith(search);
+       })
+   }
+
+   if(limit){
+       sortedProducts = sortedProducts.slice(0,Number(limit));
+   }
+   res.status(200).json(sortedProducts);
+
+   if(sortedProducts.length < 1){
+       return res.status(200).json({success:true , data : []});
+   }
+
+})
+
+
 
 
 app.listen(5000,()=>{
