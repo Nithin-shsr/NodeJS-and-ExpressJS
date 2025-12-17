@@ -2,8 +2,10 @@ const express = require('express');
 const app = express();
 const logger = require('./Logger middleware');
 const authorize = require('./Authorize middleware');
-app.use([authorize,logger]);
+const morgan = require('morgan');
+// app.use([authorize,logger]);
 
+app.use(morgan('tiny'));
 /**
  * Instead of using logger middleware in each an every routes that we are creating we can declare them only once
  * and can be used for all
