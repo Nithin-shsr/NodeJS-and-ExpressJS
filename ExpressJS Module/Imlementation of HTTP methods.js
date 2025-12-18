@@ -32,8 +32,42 @@ app.post('/login',(req,res)=>{
     else{
         res.status(404).send("Please provide credentials")
     }
-
 })
+
+// PUT route to update a person's name by ID
+app.put('/api/people/:id', (req, res) => {
+    // Extract the 'id' parameter from the request URL
+    const { id } = req.params;
+    // Extract the 'name' field from the request body
+    const { name } = req.body;
+
+    // Find the person in the array whose id matches the given id
+    const person = people.find((person) => person.id === Number(id));
+
+    // If no person is found, return a 404 Not Found response
+    if (!person) {
+        return res.status(404).json({
+            success: false,
+            msg: `No person with ID : ${id}`
+        });
+    }
+
+    // Iterate over the people array and update the matching person's name
+    const newPeople = people.map((person) => {
+        if (person.id === Number(id)) {
+            // Update the name of the person with the given id
+            person.name = name;
+        }
+        // Return the person object (updated or unchanged)
+        return person;
+    });
+
+    // Send back a 200 OK response with the updated people array
+    res.status(200).json({
+        success: true,
+        data: newPeople
+    });
+});
 
 app.listen(3000, () => {
     console.log("Listening on port 3000!");
