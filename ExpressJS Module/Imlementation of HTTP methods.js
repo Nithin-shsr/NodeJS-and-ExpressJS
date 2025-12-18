@@ -69,6 +69,31 @@ app.put('/api/people/:id', (req, res) => {
     });
 });
 
+// DELETE route to remove a person by ID
+app.delete('/api/people/:id', (req, res) => {
+    // Find the person in the array whose id matches the given id from request params
+    const person = people.find((person) => person.id === Number(req.params.id));
+
+    // If no person is found, return a 404 Not Found response
+    if (!person) {
+        return res.status(404).json({
+            success: false,
+            msg: `No person with ID : ${req.params.id}`
+        });
+    }
+
+    // Create a new array excluding the person with the given id
+    const newPeople = people.filter(
+        (person) => person.id !== Number(req.params.id)
+    );
+
+    // Send back a 200 OK response with the updated people array
+    return res.status(200).json({
+        success: true,
+        data: newPeople
+    });
+});
+
 app.listen(3000, () => {
     console.log("Listening on port 3000!");
 })
